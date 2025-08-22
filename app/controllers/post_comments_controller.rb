@@ -1,5 +1,5 @@
-class PostsController < ApplicationController
-  def index
+class PostCommentsController < ApplicationController
+def index
     @posts = Post.all.includes(:comments, :user)
   end
 
@@ -9,6 +9,11 @@ class PostsController < ApplicationController
     comment.postimage_id = postimage.id
     comment.save
     redirect_to postimage_path(postimage)
+  end
+
+  def destroy
+    PostComment.find(params[:id]).destroy
+    redirect_to postimage_path(params[:postimage_id])
   end
 
   private
